@@ -1,0 +1,10 @@
+{
+	"color_scheme": "Packages/Color Scheme - Default/Monokai Bright.tmTheme",
+	"detect_slow_plugins": false,
+	"dictionary": "Packages/Language - English/en_US.dic",
+	"font_size": 11.0,
+	"ignored_packages":
+	[
+		"Vintage"
+	]
+}

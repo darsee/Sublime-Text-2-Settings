@@ -1,0 +1,24 @@
+{
+	"auto_upgrade_last_run": 1331284702,
+	"installed_packages":
+	[
+		"Backbone.js",
+		"Gist",
+		"Git",
+		"HTML5",
+		"Indent XML",
+		"INI",
+		"Markdown Preview",
+		"Nettuts+ Fetch",
+		"nginx",
+		"Package Control",
+		"Placeholders",
+		"Pretty JSON",
+		"SCSS",
+		"SideBarEnhancements",
+		"SublimeLinter",
+		"Theme - Soda",
+		"TrailingSpaces",
+		"WordHighlight"
+	]
+}

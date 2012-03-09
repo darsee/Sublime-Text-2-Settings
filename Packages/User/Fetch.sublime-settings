@@ -1,0 +1,12 @@
+{
+	"files":
+	{
+		"jquery": "http://code.jquery.com/jquery.min.js"
+	},
+	"packages":
+	{
+		"Sencha Touch 2 Boilerplate": "https://github.com/nelstrom/Sencha-Touch-Boilerplate/zipball/master",
+		"h5bp-ant-build-script": "https://github.com/h5bp/ant-build-script/zipball/master",
+		"html5-boilerplate": "http://github.com/h5bp/html5-boilerplate/zipball/v3.0stripped"
+	}
+}
