@@ -4,35 +4,34 @@ import re
 import time
 
 settings = sublime.load_settings('Word Highlight.sublime-settings')
-settings_base = sublime.load_settings('Base File.sublime-settings')
+if int(sublime.version()) >= 2174:
+	settings_base = sublime.load_settings('Preferences.sublime-settings')
+else:
+	settings_base = sublime.load_settings('Base File.sublime-settings')
 
 class Pref:
 	def load(self):
-		Pref.color_scope_name                                   	= settings.get('color_scope_name', "comment")
-		Pref.highlight_delay                                    	= settings.get('highlight_delay', 0)
-		Pref.case_sensitive                                     	= (not bool(settings.get('case_sensitive', True))) * sublime.IGNORECASE
-		Pref.draw_outlined                                      	= bool(settings.get('draw_outlined', True)) * sublime.DRAW_OUTLINED
-		Pref.highlight_when_selection_is_empty                  	= bool(settings.get('highlight_when_selection_is_empty', False))
-		Pref.highlight_word_under_cursor_when_selection_is_empty	= bool(settings.get('highlight_word_under_cursor_when_selection_is_empty', False))
-		Pref.word_separators                                    	= settings_base.get('word_separators')
-		Pref.file_size_limit                                    	= int(settings.get('file_size_limit', 4194304))
-		Pref.when_file_size_limit_search_this_num_of_characters 	= int(settings.get('when_file_size_limit_search_this_num_of_characters', 20000))
-		Pref.timing                                             	= time.time()
-		Pref.enabled                                            	= True
-		Pref.prev_selections                                    	= None
-		Pref.prev_regions                                       	= None
+		Pref.color_scope_name                                    = settings.get('color_scope_name', "comment")
+		Pref.highlight_delay                                     = settings.get('highlight_delay', 0)
+		Pref.case_sensitive                                      = (not bool(settings.get('case_sensitive', True))) * sublime.IGNORECASE
+		Pref.draw_outlined                                       = bool(settings.get('draw_outlined', True)) * sublime.DRAW_OUTLINED
+		Pref.mark_occurrences_on_gutter                          = bool(settings.get('mark_occurrences_on_gutter', False))
+		Pref.icon_type_on_gutter                                 = settings.get("icon_type_on_gutter", "dot")
+		Pref.highlight_when_selection_is_empty                   = bool(settings.get('highlight_when_selection_is_empty', False))
+		Pref.highlight_word_under_cursor_when_selection_is_empty = bool(settings.get('highlight_word_under_cursor_when_selection_is_empty', False))
+		Pref.word_separators                                     = settings_base.get('word_separators')
+		Pref.file_size_limit                                     = int(settings.get('file_size_limit', 4194304))
+		Pref.when_file_size_limit_search_this_num_of_characters  = int(settings.get('when_file_size_limit_search_this_num_of_characters', 20000))
+		Pref.timing                                              = time.time()
+		Pref.enabled                                             = True
+		Pref.prev_selections                                     = None
+		Pref.prev_regions                                        = None
 
-Pref().load()
+Pref = Pref()
+Pref.load()
 
-settings.add_on_change('color_scope_name',                                   	lambda:Pref().load())
-settings.add_on_change('highlight_delay',                                    	lambda:Pref().load())
-settings.add_on_change('case_sensitive',                                     	lambda:Pref().load())
-settings.add_on_change('draw_outlined',                                      	lambda:Pref().load())
-settings.add_on_change('highlight_when_selection_is_empty',                  	lambda:Pref().load())
-settings.add_on_change('highlight_word_under_cursor_when_selection_is_empty',	lambda:Pref().load())
-settings.add_on_change('file_size_limit',                                    	lambda:Pref().load())
-settings.add_on_change('when_file_size_limit_search_this_num_of_characters', 	lambda:Pref().load())
-settings_base.add_on_change('word_separators',                               	lambda:Pref().load())
+settings.add_on_change('reload', lambda:Pref.load())
+settings_base.add_on_change('wordhighlight-reload', lambda:Pref.load())
 
 
 class set_word_highlight_enabled(sublime_plugin.ApplicationCommand):
@@ -42,7 +41,7 @@ class set_word_highlight_enabled(sublime_plugin.ApplicationCommand):
 			sublime.active_window().active_view().erase_regions("WordHighlight")
 		else:
 			WordHighlightListener().highlight_occurences(sublime.active_window().active_view())
-				
+
 	def description(self):
 		return 'Disable' if Pref.enabled else 'Enable'
 
@@ -75,7 +74,7 @@ class WordHighlightListener(sublime_plugin.EventListener):
 			now = time.time()
 			if now - Pref.timing > 0.08:
 				Pref.timing = now
-				self.highlight_occurences(view)
+				sublime.set_timeout(lambda:self.highlight_occurences(view), 0)
 			else:
 				Pref.timing = now
 
@@ -96,7 +95,7 @@ class WordHighlightListener(sublime_plugin.EventListener):
 			limited_size = False
 		else:
 			limited_size = True
-		
+
 		# print 'running'+ str(time.time())
 
 		regions = []
@@ -130,14 +129,14 @@ class WordHighlightListener(sublime_plugin.EventListener):
 			view.erase_regions("WordHighlight")
 			if regions:
 				if Pref.highlight_delay == 0:
-					view.add_regions("WordHighlight", regions, Pref.color_scope_name, Pref.draw_outlined)
+					view.add_regions("WordHighlight", regions, Pref.color_scope_name, Pref.icon_type_on_gutter if Pref.mark_occurrences_on_gutter else "", Pref.draw_outlined)
 					view.set_status("WordHighlight", ", ".join(list(set(occurrencesMessage))) + (' found on a limited portion of the document ' if limited_size else ''))
 				else:
 					sublime.set_timeout(lambda:self.delayed_highlight(view, regions, occurrencesMessage, limited_size), Pref.highlight_delay)
 			else:
 				view.erase_status("WordHighlight")
 			Pref.prev_regions = regions
-	
+
 	def find_regions(self, view, regions, string, limited_size):
 		search = '(?<![\\w])'+re.escape(string)+'\\b'
 		if not limited_size:

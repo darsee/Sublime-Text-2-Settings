@@ -1,5 +1,5 @@
 {
-        "scope": "source.js,source.js.embedded.html",
+        "scope": "source.js,source.js.embedded.html,source.coffee",
 
         "completions":
         [
@@ -12,6 +12,7 @@
                 "model",
                 "collection",
                 "setDomLibrary",
+                "__super__",
 
                 "Events",
                 "bind",
@@ -36,6 +37,7 @@
                 "clone",
                 "isNew",
                 "change",
+                "changed",
                 "hasChanged",
                 "changedAttributes",
                 "previous",
@@ -45,6 +47,7 @@
                 "unset",
                 "validate",
                 "isValid",
+                "wait",
 
                 "Collection",
                 "add",
@@ -91,6 +94,11 @@
                 "shuffle",
                 "initial",
                 "comparator",
+                "push",
+                "pop",
+                "unshift",
+                "shift",
+                "where",
 
                 "Router",
                 "route",
@@ -114,6 +122,11 @@
                 "history",
 
                 "require",
-                "define"
+                "define",
+
+                "arguments",
+                "prototype",
+                "var",
+                "this"
         ]
 }

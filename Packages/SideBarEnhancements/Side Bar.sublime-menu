@@ -6,6 +6,8 @@
 
 	{ "caption": "Edit",              "id": "side-bar-edit",             "command": "side_bar_edit",             "args": {"paths": []} },
 	{ "caption": "Open / Run",              "id": "side-bar-open",             "command": "side_bar_open",             "args": {"paths": []} },
+	{ "caption": "Open In Browser",              "id": "side-bar-open-in-browser",             "command": "side_bar_open_in_browser",             "args": {"paths": []} },
+	{ "caption": "Open In New Window",              "id": "side-bar-open-in-new-window",             "command": "side_bar_open_in_new_window",             "args": {"paths": []} },
 	{ "caption": "Open With",        "id": "side-bar-files-open-with",
 
 		"children":
@@ -22,6 +24,7 @@
 	{ "caption": "-",                 "id": "side-bar-edit-open-separator" },
 
 	{ "caption": "Find & Replace…", "id": "side-bar-find-selected",    "command": "side_bar_find_in_selected", "args": {"paths": []} },
+	{ "caption": "Find In Project…", "id": "side-bar-find-in-project",    "command": "side_bar_find_in_project", "args": {"paths": []} },
 	{ "caption": "Find Advanced", "id": "side-bar-find-advanced",
 		"children":
 		[
@@ -62,6 +65,9 @@
 			{ "caption": "Name Encoded",                  "id": "side-bar-clip-copy-name-encoded",             "command": "side_bar_copy_name_encoded",                 "args": {"paths": []} },
 			{ "caption": "-", 								            "id": "side-bar-clip-copy-name-encoded-separator"},
 
+			{ "caption": "URL",                 					"id": "side-bar-clip-copy-url",             "command": "side_bar_copy_url",                 "args": {"paths": []} },
+			{ "caption": "-", 								            "id": "side-bar-clip-copy-url-separator"},
+
 			{ "caption": "Tag a",              		        "id": "side-bar-clip-copy-tag-a",                 	 "command": "side_bar_copy_tag_ahref",                  "args": {"paths": []} },
 			{ "caption": "Tag img",                       "id": "side-bar-clip-copy-tag-img",               	 "command": "side_bar_copy_tag_img",                    "args": {"paths": []} },
 			{ "caption": "Tag script",                    "id": "side-bar-clip-copy-tag-script",            	 "command": "side_bar_copy_tag_script",                 "args": {"paths": []} },
@@ -97,7 +103,7 @@
 			{ "caption": "Promote as Project Folder", "id": "side-bar-project-item-add",     "command": "side_bar_project_item_add",        "args": {"paths": []} },
 			{ "caption": "Exclude From Project",			"id": "side-bar-project-item-exclude",   "command": "side_bar_project_item_exclude",        "args": {"paths": []} },
 			{ "caption": "-",                					"id": "side-bar-project-item-separator" },
-			{ "caption": "Remove Folder from Project", "command": "remove_folder", "args": { "dirs": []} },
+			{ "caption": "Remove Folder from Project", "id": "side-bar-project-item-remove-folder", "command": "side_bar_project_item_remove_folder", "args": { "paths": []} },
       { "command": "prompt_add_folder", "caption": "Add Folder to Project…", "mnemonic": "d" }
 
 		]

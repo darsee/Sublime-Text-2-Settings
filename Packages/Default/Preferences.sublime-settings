@@ -15,7 +15,7 @@
     "font_size": 10,
 
     // Valid options are "no_bold", "no_italic", "no_antialias", "gray_antialias",
-    // "subpixel_antialias" and "no_round" (OS X only)
+    // "subpixel_antialias", "no_round" (OS X only) and "directwrite" (Windows only)
     "font_options": [],
 
     // Characters that are considered to separate words
@@ -96,6 +96,8 @@
     // The color of the border will be determined by the "minimapBorder" key in
     // the color scheme
     "draw_minimap_border": false,
+
+    "minimap_scroll_to_clicked_text": true,
 
     // If enabled, will highlight any line with a caret
     "highlight_line": false,
@@ -228,6 +230,10 @@
     // inserting tabs.
     "shift_tab_unindent": false,
 
+    // If true, the copy and cut commands will operate on the current line
+    // when the selection is empty, rather than doing nothing.
+    "copy_with_empty_selection": true,
+
     // If true, the selected text will be copied into the find panel when it's
     // shown.
     // On OS X, this value is overridden in the platform specific settings, so
@@ -252,11 +258,24 @@
     // Controls side bar animation when expanding or collapsing folders
     "tree_animation_enabled": true,
 
+    // Makes tabs with modified files more visible
+    "highlight_modified_tabs": false,
+
     "show_tab_close_buttons": true,
+
+    // Show folders in the side bar in bold
+    "bold_folder_labels": false,
 
     // OS X 10.7 only: Set to true to disable Lion style full screen support.
     // Sublime Text must be restarted for this to take effect.
     "use_simple_full_screen": false,
+
+    // OS X only. Valid values are true, false, and "auto". Auto will enable
+    // the setting when running on a screen 2880 pixels or wider (i.e., a
+    // Retina display). When this setting is enabled, OpenGL is used to
+    // accelerate drawing. Sublime Text must be restarted for changes to take
+    // effect.
+    "gpu_window_buffer": "auto",
 
     // Valid values are "system", "enabled" and "disabled"
     "overlay_scroll_bars": "system",
@@ -283,16 +302,32 @@
     // dock icon, this controls if a new window is created or not.
     "open_files_in_new_window": true,
 
+    // OS X only: This controls if an empty window is created at startup or not.
+    "create_window_at_startup": true,
+
     // Set to true to close windows as soon as the last file is closed, unless
     // there's a folder open within the window. This is always enabled on OS X,
     // changing it here won't modify the behavior.
     "close_windows_when_empty": false,
 
+    // Show the full path to files in the title bar.
+    // On OS X, this value is overridden in the platform specific settings, so
+    // you'll need to place this line in your user settings to override it.
+    "show_full_path": true,
+
+    // Shows the Build Results panel when building. If set to false, the Build
+    // Results can be shown via the Tools/Build Results menu.
+    "show_panel_on_build": true,
+
+    // Preview file contents when clicking on a file in the side bar. Double
+    // clicking or editing the preview will open the file and assign it a tab.
+    "preview_on_click": true,
+
     // folder_exclude_patterns and file_exclude_patterns control which files
     // are listed in folders on the side bar. These can also be set on a per-
     // project basis.
-    "folder_exclude_patterns": [".svn", ".git", ".hg", "CVS", ".sass-cache"],
-    "file_exclude_patterns": ["*.pyc", "*.pyo", "*.exe", "*.dll", "*.obj","*.o", "*.a", "*.lib", "*.so", "*.dylib", "*.ncb", "*.sdf", "*.suo", "*.pdb", "*.idb", ".DS_Store", "*.class", "*.psd", "*.db", ".gitkeep"],
+    "folder_exclude_patterns": [".svn", ".git", ".hg", "CVS"],
+    "file_exclude_patterns": ["*.pyc", "*.pyo", "*.exe", "*.dll", "*.obj","*.o", "*.a", "*.lib", "*.so", "*.dylib", "*.ncb", "*.sdf", "*.suo", "*.pdb", "*.idb", ".DS_Store", "*.class", "*.psd", "*.db"],
     // These files will still show up in the side bar, but won't be included in
     // Goto Anything or Find in Files
     "binary_file_patterns": ["*.jpg", "*.jpeg", "*.png", "*.gif", "*.ttf", "*.tga", "*.dds", "*.ico", "*.eot", "*.pdf", "*.swf", "*.jar", "*.zip"],
